@@ -6,8 +6,8 @@
 	>
 		<!-- 进度部分 -->
 		<view class="flex align-center justify-center font" style="color: #7a8388;height: 65rpx;" @tap.stop>
-			<!-- 总时长 -->
-			<view>{{ durationTime | formatTime }}</view>
+			<!-- 播放时刻 -->
+			<view>{{ currentTime | formatTime }}</view>
 			<!-- 进度条部分 -->
 			<view style="width: 500rpx;">
 				<slider
@@ -20,8 +20,8 @@
 					@changing="sliderToPlay"
 				/>
 			</view>
-			<!-- 播放时刻 -->
-			<view>{{ currentTime | formatTime }}</view>
+			<!-- 总时长 -->
+			<view>{{ durationTime | formatTime }}</view>
 		</view>
 
 		<view class="flex align-center justify-between mx-2" style="height: 95rpx;">

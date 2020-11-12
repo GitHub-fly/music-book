@@ -34,7 +34,7 @@
 		{
 			"path": "pages/detail/detail",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "歌曲详情",
 				"enablePullDownRefresh": false
 			}
 
