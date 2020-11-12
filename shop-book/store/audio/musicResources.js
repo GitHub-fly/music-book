@@ -3,7 +3,8 @@ export default {
 		{
 			id: 20001,
 			name: '女孩你为何踮脚尖',
-			src: '/static/mp3/20001.mp3',
+			// src: '/static/mp3/20001.mp3',
+			src: 'http://music.163.com/song/media/outer/url?id=26643898.mp3',
 			singer: {
 				name: '黄晨晨',
 				synopsis: '黄晨晨 - 女孩你为何踮脚尖'

@@ -1,5 +1,5 @@
 <template>
-	<view class="fixed-bottom rounded mx-2 mb-1" style="height: 160rpx;background-color: #dlccc0;opacity: .9;">
+	<view class="fixed-bottom rounded mx-2 mb-1" style="height: 160rpx;background-color: #d1ccc0;opacity: .9;">
 		<!-- 进度部分 -->
 		<view class="flex align-center justify-center font" style="color: #7a8388;height: 65rpx;">
 			<!-- 播放时刻 -->
@@ -45,6 +45,8 @@
 </template>
 
 <script>
+
+// 辅助函数
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 import unit from '../common/unit.js';
 export default {
@@ -70,7 +72,7 @@ export default {
 		this.init();
 	},
 	destroyed() {
-		ths.description();
+		ths.destruction();
 	},
 	onLoad() {
 		this.audio;
