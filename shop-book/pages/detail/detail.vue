@@ -1,5 +1,6 @@
 <template>
-	<view>
+	<!-- 根据 nightStatus 的值切换白天和黑夜模式 -->
+	<view style="height: 100vh;" :class="nightStatus ? 'nightTheme' : ''">
 		<!-- 歌曲信息 -->
 		<view class="d-inline-block w-100 text-center py-4">
 			<view>
@@ -57,8 +58,8 @@
 					<my-icon iconId="icon-aixinfengxian" iconSize="60"></my-icon>
 					<text class="pt-1">收藏</text>
 				</view>
-				<view class="flex flex-column align-center">
-					<my-icon iconId="icon-yejianmoshi" iconSize="60"></my-icon>
+				<view class="flex flex-column align-center" @tap="chageStatus('nightStatus')">
+					<my-icon :iconId="!nightStatus ? 'icon-yejianmoshi' : 'icon-yueliang'" iconSize="60"></my-icon>
 					<text class="pt-1">夜间模式</text>
 				</view>
 			</view>
@@ -108,7 +109,11 @@ import unit from '../../common/unit.js';
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
 export default {
 	data() {
-		return {};
+		return {
+			listStatus: false,
+			collectStatus: false,
+			nightStatus: false
+		}
 	},
 	filters: {
 		formatTime(num) {
@@ -136,6 +141,12 @@ export default {
 		])
 	},
 	methods: {
+		/**
+		 * 改变状态
+		 */
+		chageStatus(statusType) {
+			this[statusType] = !this[statusType]
+		},
 		...mapActions([
 			'sliderToPlay'
 		])
