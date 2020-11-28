@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<view class="main">
-			<view v-if="!addrressList.length" style="color: #878889;">
+			<view v-if="!addressList.length" style="color: #878889;">
 				<view>暂无地址信息</view>
 				<view>请点击底部按钮添加地址信息</view>
 			</view>
@@ -9,7 +9,7 @@
 				<uni-swipe-action>
 					<uni-swipe-action-item
 						class="address-wrapper"
-						:option="swipeOption"
+						:options="swipeOption"
 						@click="handleSwipeClick(address._id)"
 						v-for="(address, index) in addressList"
 						:key="index"
@@ -20,7 +20,7 @@
 									{{ address.street }}
 								</view>
 								<view class="font-size-sm text-color-assist">
-									{{ address.accept_name }} {{ !address.gender ? '先生' : '女士' }}
+									{{ address.accept_name }}{{ !address.gender ? '先生' : '女士' }}
 									{{ address.mobile }}
 								</view>
 							</view>
@@ -35,8 +35,8 @@
 </template>
 
 <script>
-import uniSwipeAction from '@/components/uni-swipe-action/uni-swipe-action.vue';
-import uniSwipeActionItem from '@/components/uni-swipe-action-item/uni-swipe-action-item.vue';
+import uniSwipeAction from '../../components/uni-swipe-action/uni-swipe-action.vue';
+import uniSwipeActionItem from '../../components/uni-swipe-action-item/uni-swipe-action-item.vue';
 import { mapState, mapMutations } from 'vuex';
 export default {
 	components: {
@@ -63,106 +63,96 @@ export default {
 		this.getAddress();
 	},
 	onShow() {
-		this.getAdddress();
+		this.getAddress();
 	},
 	methods: {
 		...mapMutations(['SET_ADDRESS', 'SET_ORDERTYPE']),
-
-	getAdddress() {
-		uni.showLoading({
-			title: '数据加载中...',
-		});
-		return uniCloud
-			.callFunction({
-				name: 'vadidateToken',
-				data: {
-					token: uni.getStorageSync('token')
-				}
-			})
-			.then(res => {
-				if (res.result.status === 0) {
-					uni.hideLoading();
-					return uniCloud
-						.callFunction({
+		getAddress() {
+			uni.showLoading({
+				title: '数据加载中...'
+			});
+			return uniCloud
+				.callFunction({
+					name: 'vadidateToken',
+					data: {
+						token: uni.getStorageSync('token')
+					}
+				})
+				.then(res => {
+					if (res.result.status === 0) {
+						uni.hideLoading();
+						return uniCloud.callFunction({
 							name: 'address',
 							data: {
 								openId: res.result.openId,
 								action: 'getList'
 							}
-						})
-				} else {
-					uni.hideLoading();
-					uni.showModal({
-						content: res.result.msg,
-						showCancel: false
-					});
-				}
-			})
-			.then(resData => {
-				this.addressList = resData.result.data;
+						});
+					} else {
+						uni.hideLoading();
+						uni.showModal({
+							content: res.result.msg,
+							showCancel: false
+						});
+					}
+				})
+				.then(resData => {
+					this.addressList = resData.result.data;
 				});
 		},
-
-		// 删除地址
 		handleSwipeClick(id) {
 			uni.showModal({
 				title: '提示',
 				content: '确定要删除？',
-				success: (res) => {
+				success: res => {
 					if (res.confirm) {
 						return uniCloud
-						.callFunction({
-							name: 'address',
-							data: {
-								id: id,
-								action: 'deleteAddress'
-							}
-						})
-						.then(rs => {
-							console.log(rs);
-							if (res.result.status === 0) {
-								uni.showToast({
-									title: '删除成功',
-									icon: 'success'
-								})
-								this.getAddress()
-							}
-							uni.showModal({
-								content: res.result.msg,
-								showCancel: false
+							.callFunction({
+								name: 'address',
+								data: {
+									id: id,
+									action: 'deleteAddress'
+								}
 							})
-						})
+							.then(res => {
+								console.log(res);
+								if (res.result.status === 0) {
+									uni.showToast({
+										title: '删除成功',
+										icon: 'success'
+									});
+									this.getAddress();
+								}
+								uni.showModal({
+									content: res.result.msg,
+									showCancel: false
+								});
+							});
 					}
 				}
-			})
+			});
 		},
-
-		// 添加地址
 		add() {
 			uni.navigateTo({
 				url: '/pages/address/add'
 			});
 		},
-
-		// 编辑地址
-		edit(addresses) {
-			this.SET_ADDRESS(addresses)
+		edit(address) {
+			this.SET_ADDRESS(address);
 			uni.navigateTo({
 				url: '/pages/address/edit'
-			})
-		}
-		// 选取地址并跳转到点餐界面
+			});
+		},
 		tapAddress(address) {
-			this.SET_ADDRESS(address)
-			this.SET_ORDERTYPE('takeout')
+			this.SET_ADDRESS(address);
+			this.SET_ORDERTYPE('takeout');
 			uni.switchTab({
 				url: '../menu/menu'
-			})
+			});
 		}
 	}
 };
 </script>
-
 <style lang="scss" scoped>
 .main {
 	width: 100%;

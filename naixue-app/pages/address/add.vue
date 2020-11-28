@@ -69,13 +69,14 @@
 </template>
 
 <script>
+import listCell from '@/components/list-cell/list-cell';
 export default {
 	comments: {
 		listCell
 	},
 	data() {
 		return {
-			form:{
+			form: {
 				accept_name: '',
 				gender: 0,
 				mobile: '',
@@ -88,40 +89,42 @@ export default {
 	methods: {
 		save() {
 			let data = this.form;
-			return uniCloud.callFunction({
-				name: 'vadidateToken',
-				data: {
-					token: uni.getStorageSync('token')
-				}
-			})
-			.then(res => {
-				if (res.result.status === 0) {
-					this.form.openId = res.result.openId,
-					return uniCloud.callFunction({
-						name: 'address',
-						data: {
-							data: data,
-							action: 'addAddress'
-						}
-					})
-					.then(res => {
-						if (res.result.status === 0) {
-							uni.showToast({
-								title: '添加成功'
+			return uniCloud
+				.callFunction({
+					name: 'vadidateToken',
+					data: {
+						token: uni.getStorageSync('token')
+					}
+				})
+				.then(res => {
+					if (res.result.status === 0) {
+						this.form.openId = res.result.openId;
+						return uniCloud
+							.callFunction({
+								name: 'address',
+								data: {
+									data: data,
+									action: 'addAddress'
+								}
 							})
-							uni.navigateBack({})
-						} else {
-							uni.showModal({
-								content: res.result.msg,
-								showCancel: false
-							})
-						}
-					})
-				}
-			})
+							.then(res => {
+								if (res.result.status === 0) {
+									uni.showToast({
+										title: '添加成功'
+									});
+									uni.navigateBack({});
+								} else {
+									uni.showModal({
+										content: res.result.msg,
+										showCancel: false
+									});
+								}
+							});
+					}
+				});
 		}
 	}
-}
+};
 </script>
 
 <style lang="scss" scoped>

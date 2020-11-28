@@ -1,5 +1,5 @@
 'use strict';
-const db = uniCloud.databse();
+const db = uniCloud.database();
 exports.main = async (event, context) => {
 	if (event.action == 'getList') {
 		// 查询地址

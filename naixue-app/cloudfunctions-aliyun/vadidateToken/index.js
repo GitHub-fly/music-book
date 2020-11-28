@@ -4,6 +4,7 @@ const db = uniCloud.database();
 exports.main = async (event, context) => {
 	const token = event.token;
 	// 解码 token，得到 openId
+	console.log(token);
 	const openId = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
 	// 验证数据库有无此 openId 用户
 	const userInDB = await db.collection('users').where({
@@ -20,7 +21,7 @@ exports.main = async (event, context) => {
 	const userInfoDB = userInDB.data[0];
 	let userInfoDecode;
 	userInfoDecode = jwt.decode(token, userInfoDB.tokenSecret);
-	if (userInfoDB.exp > Date.now() && userInfoDecode == userFromToken) {
+	if (userInfoDB.exp > Date.now() && userInfoDecode == openId) {
 		return {
 			status: 0,
 			openId: userInfoDecode,

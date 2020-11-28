@@ -138,10 +138,12 @@
 </template>
 
 <script>
-import listCell from '@/components/list-cell/list-cell';
-import {mapState} from 'vuex'
-
+import listCell from '@/components/list-cell/list-cell'
+import { mapState } from 'vuex';
 export default {
+	components: {
+		listCell
+	},
 	data() {
 		return {
 			form: {
@@ -152,46 +154,41 @@ export default {
 				street: '',
 				_id: ''
 			}
-		}
-	},
-	components: {
-		listCell
+		};
 	},
 	computed: {
 		...mapState(['choseAddress'])
 	},
 	onLoad() {
-		this.form = this.choseAddress
+		this.form = this.choseAddress;
 	},
 	methods: {
 		save() {
-			let data = this.form
+			let data = this.form;
 			return uniCloud
-			.callFunction({
-				name: 'address',
-				data: {
-					data: data,
-					action: 'editAddress'
-				}
-			})
-			.then(res => {
-				console.log(res);
-				if (res.result.status === 0) {
-					uni.showToast({
-						title: res.result.msg
-					})
-					uni.navigateBack({
-						
-					})
-				} else if (res.result.status === -1) {
-					uni.showToast({
-						title: res.result.msg
-					})
-				}
-			})
+				.callFunction({
+					name: 'address',
+					data: {
+						data: data,
+						action: 'editAddress'
+					}
+				})
+				.then(res => {
+					console.log(res);
+					if (res.result.status === 0) {
+						uni.showToast({
+							title: res.result.msg
+						});
+						uni.navigateBack({});
+					} else if (res.result.status === -1) {
+						uni.showToast({
+							title: res.result.msg
+						});
+					}
+				});
 		}
 	}
-}
+};
 </script>
 
 <style lang="scss">
