@@ -38,38 +38,13 @@
 				"enablePullDownRefresh": false
 			}
 
-		},
-		{
-			"path": "pages/menu/menu",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		},
-		{
-			"path": "pages/mine/mine",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
-		},
-		{
-			"path": "pages/take-foods/take-foods",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
-
 		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "naixue-app",
 		"navigationBarBackgroundColor": "#e1bee7",
-		"backgroundColor": "#e1bee7",
-		"borderStyle": "black"
+		"backgroundColor": "#e1bee7"
 	},
 	"tabBar": {
 			"color": "#919293",

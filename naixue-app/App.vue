@@ -12,12 +12,12 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 /* 每个页面公共css */
-@import url('@/static/style/app.scss');
+@import '@/static/style/app.scss';
 /* 引入iconfont */
-@import url('@/static/iconfont/iconfont.css');
-@import url('/common/free.css');
-@import url('/common/common.css');
-@import url('/common/animate.css');
+@import '@/static/iconfont/iconfont.css';
+@import '/common/free.css';
+@import '/common/common.css';
+@import '/common/animate.css';
 </style>
