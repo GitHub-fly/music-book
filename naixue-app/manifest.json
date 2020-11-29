@@ -60,12 +60,13 @@
         "appid" : "wx11b51ab0ce058e3d",
         "setting" : {
             "urlCheck" : false,
-            "minified" : true
+            "minified" : true,
+            "es6" : true
         },
         "usingComponents" : true,
         "permission" : {
             "scope.userLocation" : {
-                "desc" : ""
+                "desc" : "查找附近门店"
             }
         }
     },
