@@ -82,12 +82,14 @@ export default {
 				mobile: '',
 				area: '',
 				street: '',
-				openId: ''
+				openId: '',
+				store_name: ''
 			}
 		};
 	},
 	methods: {
 		save() {
+			this.form.store_name = this.form.street + '店'
 			let data = this.form;
 			return uniCloud
 				.callFunction({

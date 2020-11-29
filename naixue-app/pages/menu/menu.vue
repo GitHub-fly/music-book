@@ -439,7 +439,10 @@ export default {
 				this.calcSize();
 			}
 			this.currentCateId = id;
-			this.$nextTick(() => (this.cateScrollTop = this.goods.find(item => item.id == id).top));
+			console.log("this.currentCateId");
+			console.log(this.currentCateId);
+			console.log(this.goods);
+			this.$nextTick(() => (this.cateScrollTop = this.goods.find(item => item._id == id).top));
 		},
 		handleGoodsScroll({ detail }) {
 			if (!this.sizeCalcState) {

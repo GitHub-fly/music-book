@@ -20,12 +20,12 @@
 						<view class="store-status">营业中</view>
 					</view>
 					<view class="store-content">
-						<view class="store-distance">距离您{{ store.distance }}km</view>
+						<view class="store-distance">距离您{{store.distance}}km</view>
 						<text class="store-text">{{ store.street }}</text>
 						<text class="store-text">营业时间：10：00-22:30</text>
 					</view>
 				</view>
-				<view class="store-rigth">
+				<view class="store-right">
 					<view class="look">去看看</view>
 					<view class="icon">
 						<view class="round"><image src="../../static/images/store/store-tel.png"></image></view>
@@ -36,7 +36,6 @@
 		</view>
 	</view>
 </template>
-
 <script>
 import { mapMutations } from 'vuex';
 export default {
@@ -65,6 +64,8 @@ export default {
 				});
 			})
 				.then(local => {
+					console.log('local:');
+					console.log(local);
 					let la1 = local.latitude;
 					let lo1 = local.longitude;
 					return uniCloud
@@ -75,7 +76,7 @@ export default {
 							let temp = [];
 							let l = resStore.result.length;
 							if (l >= 1) {
-								for (let i = 0; i < 1; i++) {
+								for (let i = 0; i < l; i++) {
 									let element = resStore.result[i];
 									let d = this.distance(element.latitude, element.longitude, la1, lo1);
 									console.log('距离是:' + d);
@@ -85,6 +86,8 @@ export default {
 								this.storeData = temp.sort(function(a, b) {
 									return a.distance - b.distance;
 								});
+								console.log('storeData:');
+								console.log(this.storeData);
 								return this.storeData;
 							}
 						});
@@ -123,7 +126,7 @@ export default {
 				2 *
 				Math.asin(
 					Math.sqrt(
-						Math.pow(Math.sin(La3 / 2), 1) + Math.cos(La1) * Math.cos(La2) * Math.pow(Math.sin(Lb3 / 2), 2)
+						Math.pow(Math.sin(La3 / 2), 2) + Math.cos(La1) * Math.cos(La2) * Math.pow(Math.sin(Lb3 / 2), 2)
 					)
 				);
 			s = s * 6378.137;
@@ -135,6 +138,8 @@ export default {
 		tapStore(store) {
 			this.SET_ORDERTYPE('takein');
 			this.SET_STORE(store);
+			console.log('store');
+			console.log(store);
 			uni.switchTab({
 				url: '../menu/menu'
 			});
