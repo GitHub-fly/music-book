@@ -395,7 +395,7 @@ export default {
 			});
 		},
 		init() {
-			if (Object.keys(this.choseStore).length == 0 && this.orderType == 'takein') {
+			if (Object.keys(this.choseStore).length == 0) {
 				uni.navigateTo({
 					url: '../stores/stores'
 				});
@@ -439,7 +439,7 @@ export default {
 				this.calcSize();
 			}
 			this.currentCateId = id;
-			console.log("this.currentCateId");
+			console.log('this.currentCateId');
 			console.log(this.currentCateId);
 			console.log(this.goods);
 			this.$nextTick(() => (this.cateScrollTop = this.goods.find(item => item._id == id).top));
@@ -549,6 +549,7 @@ export default {
 		handleCartItemAdd(index) {
 			this.cart[index].number += 1;
 		},
+		//结算按钮操作
 		topay() {
 			if (!this.isLogin) {
 				uni.navigateTo({
@@ -556,9 +557,60 @@ export default {
 				});
 				return;
 			}
-			uni.navigateTo({
-				url: '../pay/pay?total=' + this.getCartGoodsPrice
+			uni.showLoading({
+				title: '加载中……'
 			});
+			return uniCloud
+				.callFunction({
+					name: 'validateToken',
+					data: {
+						token: uni.getStorageSync('token')
+					}
+				})
+				.then(res => {
+					if (res.result.status === 0) {
+						uni.hideLoading();
+						if (this.orderType == 'takein') {
+							let data = {
+								openId: res.result.openId,
+								goodsInOrder: this.cart,
+								chooseStore: this.choseStore.name
+							};
+							return uniCloud.callFunction({
+								name: 'order',
+								data: {
+									data: data,
+									action: 'addTakein'
+								}
+							});
+						} else if (this.orderType == 'takeout') {
+							let data = {
+								openId: res.result.openId,
+								goodsInOrder: this.cart,
+								chooseStore: this.choseAddress.storeName,
+								order_address: this.choseAddress._id
+							};
+							return uniCloud.callFunction({
+								name: 'order',
+								data: {
+									data: data,
+									action: 'addTakeout'
+								}
+							});
+						}
+					} else {
+						uni.hideLoading();
+						uni.showModal({
+							content: res.result.msg,
+							showCancel: false
+						});
+					}
+				})
+				.then(resData => {
+					uni.navigateTo({
+						url: '../pay/pay?order_id=' + resData.result.order_id
+					});
+				});
 		}
 	}
 };
