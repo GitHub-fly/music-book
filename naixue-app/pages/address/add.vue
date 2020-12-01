@@ -93,7 +93,7 @@ export default {
 			let data = this.form;
 			return uniCloud
 				.callFunction({
-					name: 'vadidateToken',
+					name: 'validateToken',
 					data: {
 						token: uni.getStorageSync('token')
 					}

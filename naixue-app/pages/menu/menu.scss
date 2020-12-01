@@ -108,7 +108,7 @@ page {
 	flex-shrink: 0;
 	display: flex;
 	flex-direction: column;
-
+	
 	.header {
 		width: 100%;
 		display: flex;
@@ -160,9 +160,8 @@ page {
 			font-size: $font-size-sm;
 			padding: 0 38rpx;
 			color: $text-color-assist;
-
-			.dinein,
-			.takeout {
+			
+			.dinein, .takeout {
 				position: relative;
 				display: flex;
 				align-items: center;
@@ -173,14 +172,14 @@ page {
 					border-radius: 38rpx;
 				}
 			}
-
+			
 			.takeout {
 				margin-left: 20rpx;
 				height: 100%;
 				flex: 1;
 				padding: 14rpx 0;
 			}
-
+			
 			.dinein.active {
 				margin-left: -38rpx;
 			}
@@ -201,7 +200,7 @@ page {
 		display: flex;
 		align-items: center;
 		overflow: hidden;
-
+		
 		.title {
 			flex: 1;
 			margin-left: 10rpx;
@@ -209,7 +208,7 @@ page {
 			white-space: nowrap;
 			text-overflow: ellipsis;
 		}
-
+		
 		.iconfont {
 			line-height: 100%;
 		}
@@ -227,11 +226,11 @@ page {
 		height: 100%;
 		overflow: hidden;
 		background-color: $bg-color-grey;
-
+		
 		.wrapper {
 			width: 100%;
 			height: 100%;
-
+			
 			.menu {
 				display: flex;
 				align-items: center;
@@ -240,11 +239,11 @@ page {
 				font-size: 26rpx;
 				color: $text-color-assist;
 				position: relative;
-
+				
 				&:nth-last-child(1) {
 					margin-bottom: 130rpx;
 				}
-
+				
 				&.current {
 					background-color: #ffffff;
 					color: $text-color-base;
@@ -292,7 +291,7 @@ page {
 				width: 100%;
 				font-size: $font-size-base;
 				padding-bottom: 130rpx;
-
+				
 				.category {
 					width: 100%;
 
@@ -468,7 +467,7 @@ page {
 			width: 100%;
 			height: 100%;
 			overflow: hidden;
-
+			
 			.basic {
 				padding: 0 20rpx 30rpx;
 				display: flex;
@@ -483,34 +482,34 @@ page {
 					color: $text-color-grey;
 				}
 			}
-
+			
 			.properties {
 				width: 100%;
 				border-top: 2rpx solid $bg-color-grey;
 				padding: 10rpx 30rpx 0;
 				display: flex;
 				flex-direction: column;
-
+				
 				.property {
 					width: 100%;
 					display: flex;
 					flex-direction: column;
 					margin-bottom: 30rpx;
 					padding-bottom: -16rpx;
-
+					
 					.title {
 						width: 100%;
 						display: flex;
 						justify-content: flex-start;
 						align-items: center;
 						margin-bottom: 20rpx;
-
+						
 						.name {
 							font-size: 26rpx;
 							color: $text-color-base;
 							margin-right: 20rpx;
 						}
-
+						
 						.desc {
 							flex: 1;
 							font-size: $font-size-sm;
@@ -520,12 +519,12 @@ page {
 							white-space: nowrap;
 						}
 					}
-
+					
 					.values {
 						width: 100%;
 						display: flex;
 						flex-wrap: wrap;
-
+						
 						.value {
 							border-radius: 8rpx;
 							background-color: $bg-color-grey;
@@ -534,7 +533,7 @@ page {
 							color: $text-color-assist;
 							margin-right: 16rpx;
 							margin-bottom: 16rpx;
-
+							
 							&.default {
 								background-color: $color-primary;
 								color: $text-color-white;
@@ -545,7 +544,7 @@ page {
 			}
 		}
 	}
-
+	
 	.action {
 		display: flex;
 		align-items: center;
@@ -561,7 +560,7 @@ page {
 			justify-content: center;
 			margin-right: 20rpx;
 			overflow: hidden;
-
+			
 			.price {
 				font-size: $font-size-lg;
 				color: $text-color-base;
@@ -620,34 +619,34 @@ page {
 	height: 96rpx;
 	border-radius: 48rpx;
 	box-shadow: 0 0 20rpx rgba(0, 0, 0, 0.2);
-	background-color: #ffffff;
+	background-color: #FFFFFF;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	z-index: 9999;
-
+	
 	.cart-img {
 		width: 96rpx;
 		height: 96rpx;
 		position: relative;
 		margin-top: -48rpx;
 	}
-
+	
 	.pay-btn {
 		height: 100%;
 		padding: 0 30rpx;
-		color: #ffffff;
+		color: #FFFFFF;
 		border-radius: 0 50rpx 50rpx 0;
 		display: flex;
 		align-items: center;
 		font-size: $font-size-base;
 	}
-
+	
 	.mark {
 		padding-left: 46rpx;
 		margin-right: 30rpx;
 		position: relative;
-
+		
 		.tag {
 			background-color: $color-warning;
 			color: $text-color-white;
@@ -662,10 +661,10 @@ page {
 			padding: 4rpx;
 			width: 40rpx;
 			height: 40rpx;
-			opacity: 0.9;
+			opacity: .9;
 		}
 	}
-
+	
 	.price {
 		flex: 1;
 		color: $text-color-base;
@@ -681,26 +680,26 @@ page {
 		text-align: right;
 	}
 	.cart-list {
-		background-color: #ffffff;
+		background-color: #FFFFFF;
 		width: 100%;
 		overflow: hidden;
 		min-height: 1vh;
 		max-height: 60vh;
-
+		
 		.wrapper {
 			height: 100%;
 			display: flex;
 			flex-direction: column;
 			padding: 0 30rpx;
 			margin-bottom: 156rpx;
-
+			
 			.item {
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
 				padding: 30rpx 0;
 				position: relative;
-
+				
 				&::after {
 					content: ' ';
 					position: absolute;
@@ -709,16 +708,16 @@ page {
 					width: 100%;
 					background-color: $border-color;
 					height: 2rpx;
-					transform: scaleY(0.6);
+					transform: scaleY(.6);
 				}
-
+				
 				.left {
 					flex: 1;
 					display: flex;
 					flex-direction: column;
 					overflow: hidden;
 					margin-right: 30rpx;
-
+					
 					.name {
 						font-size: $font-size-sm;
 						color: $text-color-base;
@@ -731,17 +730,17 @@ page {
 						white-space: nowrap;
 					}
 				}
-
+				
 				.center {
 					margin-right: 120rpx;
 					font-size: $font-size-base;
 				}
-
+				
 				.right {
 					display: flex;
 					align-items: center;
 					justify-content: space-between;
-
+					
 					.btn {
 						width: 46rpx;
 						height: 46rpx;
@@ -750,7 +749,7 @@ page {
 						text-align: center;
 						line-height: 46rpx;
 					}
-
+					
 					.number {
 						font-size: $font-size-base;
 						width: 46rpx;

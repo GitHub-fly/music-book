@@ -73,7 +73,7 @@ export default {
 			});
 			return uniCloud
 				.callFunction({
-					name: 'vadidateToken',
+					name: 'validateToken',
 					data: {
 						token: uni.getStorageSync('token')
 					}

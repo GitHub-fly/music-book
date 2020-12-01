@@ -395,7 +395,7 @@ export default {
 			});
 		},
 		init() {
-			if (Object.keys(this.choseStore).length == 0) {
+			if (Object.keys(this.choseStore).length == 0 ) {
 				uni.navigateTo({
 					url: '../stores/stores'
 				});
@@ -419,7 +419,11 @@ export default {
 					h += Math.floor(data.height);
 				}
 			).exec();
+			console.log("商品是: ")
+			console.log(this.goods)
+			console.log("商品是")
 			this.goods.forEach(item => {
+				console.log(item)
 				let view = uni.createSelectorQuery().select(`#cate-${item._id}`);
 				view.fields(
 					{
@@ -439,10 +443,11 @@ export default {
 				this.calcSize();
 			}
 			this.currentCateId = id;
-			console.log('this.currentCateId');
-			console.log(this.currentCateId);
-			console.log(this.goods);
-			this.$nextTick(() => (this.cateScrollTop = this.goods.find(item => item._id == id).top));
+			this.$nextTick(() => (this.cateScrollTop = (this.goods.find(item => {
+				if(item._id == id){
+					return item
+				}
+			}).top)));
 		},
 		handleGoodsScroll({ detail }) {
 			if (!this.sizeCalcState) {
@@ -549,7 +554,6 @@ export default {
 		handleCartItemAdd(index) {
 			this.cart[index].number += 1;
 		},
-		//结算按钮操作
 		topay() {
 			if (!this.isLogin) {
 				uni.navigateTo({
@@ -558,59 +562,58 @@ export default {
 				return;
 			}
 			uni.showLoading({
-				title: '加载中……'
-			});
-			return uniCloud
-				.callFunction({
-					name: 'validateToken',
-					data: {
-						token: uni.getStorageSync('token')
-					}
-				})
-				.then(res => {
-					if (res.result.status === 0) {
-						uni.hideLoading();
-						if (this.orderType == 'takein') {
-							let data = {
-								openId: res.result.openId,
-								goodsInOrder: this.cart,
-								chooseStore: this.choseStore.name
-							};
-							return uniCloud.callFunction({
-								name: 'order',
-								data: {
-									data: data,
-									action: 'addTakein'
-								}
-							});
-						} else if (this.orderType == 'takeout') {
-							let data = {
-								openId: res.result.openId,
-								goodsInOrder: this.cart,
-								chooseStore: this.choseAddress.storeName,
-								order_address: this.choseAddress._id
-							};
-							return uniCloud.callFunction({
-								name: 'order',
-								data: {
-									data: data,
-									action: 'addTakeout'
-								}
-							});
+				title: '加载中'
+			})
+			return uniCloud.callFunction({
+				name: 'validateToken',
+				data: {
+					token: uni.getStorageSync('token')
+				}
+			}).then((res) => {
+				if(res.result.status === 0) {
+					uni.hideLoading()
+					if(this.orderType == 'takein') {
+						console.log("进入this.orderType方法")
+						let data = {
+							openId: res.result.openId,
+							goodsInOrder: this.cart,
+							chooseStore: this.choseStore.name
 						}
-					} else {
-						uni.hideLoading();
-						uni.showModal({
-							content: res.result.msg,
-							showCancel: false
-						});
+						return uniCloud.callFunction({
+							name: 'order',
+							data: {
+								data: data,
+								action: 'addTakein'
+							}
+						})
+					} else if(this.orderType == 'takeout') {
+					let data = {
+						openId: res.result.openId,
+						goodsInOrder:this.cart,
+						chooseStore: this.choseAddress.storeName,
+						order_address: this.choseAddress._id
 					}
+					return uniCloud.callFunction({
+						name: 'order',
+						data: {
+							data: data,
+							action: 'addTakeout'
+						}
+					})
+				}
+				}  else {
+					uni.hideLoading()
+					uni.showModal({
+						content:res.result.msg,
+						showCancel:false
+					})
+				}
+			}).then(resData => {
+				console.log("进入跳转页面方法")
+				uni.navigateTo({
+					url: '../pay/pay?order_id=' + resData.result.order_id
 				})
-				.then(resData => {
-					uni.navigateTo({
-						url: '../pay/pay?order_id=' + resData.result.order_id
-					});
-				});
+			})
 		}
 	}
 };
