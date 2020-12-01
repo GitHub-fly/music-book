@@ -2,7 +2,7 @@
 	<view class="container">
 		<view class="position-relative">
 			<image src="https://img-shop.qmimg.cn/s16/images/2020/01/20/9a82219bedcae5c2.jpeg" class="bg"></image>
-			<button type="default" size="mini" class="hym-btn">
+			<button @click="code()" type="default" size="mini" class="hym-btn">
 				<image src="/static/images/mine/hym.png"></image>
 				<text>会员码</text>
 			</button>
@@ -197,7 +197,12 @@
 				uni.navigateTo({
 					url: '/pages/address/address'
 				})
-			}
+			},
+			code() {
+				uni.navigateTo({
+					url: '../member-code/member-code'
+				});
+			},
 		}
 	};
 </script>
